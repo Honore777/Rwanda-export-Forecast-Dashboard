@@ -47,7 +47,7 @@ Users can:
   4. Recommendations
   5. Partner States Mapping
   6. Technical Details
-  7.Row data
+  7. Row data
 
 ---
 
@@ -76,16 +76,29 @@ data/ → Preprocessed datasets used in the dashboard.
 README.md → Project documentation (this file).
 
 
+# ⚙️ How to Run Locally
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/Honore777/Rwanda-export-Forecast-Dashboard.git
+   cd Rwanda-export-Forecast-Dashboard
+
+
+## Demo video 
+### here is the link to the demo video [https://drive.google.com/file/d/1uUOGYX7e6yE0xxMnsBKJajYlXcPeI8-j/view?usp=sharing]
+
+
+## Streamlit link (deployment link to streamlit app )
+
+
 ## 👥 Team Information
 
 Team Name: Kepler Data Scientists
 
 Team Members: - Honore HARERIMANA
+
              -Fabrice Niyigena
 
 
-### here is the link to the demo video [https://drive.google.com/file/d/1uUOGYX7e6yE0xxMnsBKJajYlXcPeI8-j/view?usp=sharing]
 
 
-## Deployment
 
