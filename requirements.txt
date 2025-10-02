@@ -1,124 +1,14 @@
-altair==5.5.0
-anaconda-anon-usage @ file:///C:/b/abs_1az9wuczyu/croot/anaconda-anon-usage_1749054795139/work
-annotated-types @ file:///C:/b/abs_0dmaoyhhj3/croot/annotated-types_1709542968311/work
-anyio==4.11.0
-archspec @ file:///croot/archspec_1709217642129/work
-asttokens==3.0.0
-attrs==25.3.0
-blinker==1.9.0
-boltons @ file:///C:/b/abs_e2_iokhxbp/croot/boltons_1751383740243/work
-branca==0.8.1
-brotlicffi @ file:///C:/b/abs_f4lixvzmxt/croot/brotlicffi_1736183286104/work
-cachetools==6.1.0
-certifi @ file:///C:/b/abs_67mh6i36ci/croot/certifi_1752653721535/work/certifi
-cffi @ file:///C:/b/abs_29_b57if3f/croot/cffi_1736184144340/work
-charset-normalizer @ file:///croot/charset-normalizer_1721748349566/work
-click==8.2.1
-colorama @ file:///C:/ci_311/colorama_1676422310965/work
-comm==0.2.3
-conda @ file:///C:/b/abs_78fae1xfc9/croot/conda_1749171262913/work/conda-src
-conda-anaconda-telemetry @ file:///C:/b/abs_d4qxn0oeix/croot/conda-anaconda-telemetry_1751062015410/work
-conda-anaconda-tos @ file:///C:/b/abs_4csynbis2x/croot/conda-anaconda-tos_1752801584932/work
-conda-content-trust @ file:///C:/b/abs_bdfatn_wzf/croot/conda-content-trust_1714483201909/work
-conda-libmamba-solver @ file:///croot/conda-libmamba-solver_1745607008911/work/src
-conda-package-handling @ file:///C:/b/abs_7fz3aferfv/croot/conda-package-handling_1731369038903/work
-conda_package_streaming @ file:///C:/b/abs_2d41dz5u60/croot/conda-package-streaming_1751307521903/work
-country_converter==1.3.1
-cryptography @ file:///C:/b/abs_5eg9xpv31w/croot/cryptography_1748977441610/work
-debugpy==1.8.17
-decorator==5.2.1
-distro @ file:///C:/b/abs_71xr36ua5r/croot/distro_1714488282676/work
-executing==2.2.1
-folium==0.20.0
-frozendict @ file:///C:/b/abs_2alamqss6p/croot/frozendict_1713194885124/work
-gitdb==4.0.12
-GitPython==3.1.45
-groq==0.32.0
-h11==0.16.0
-httpcore==1.0.9
-httpx==0.28.1
-idna @ file:///C:/b/abs_aad84bnnw5/croot/idna_1714398896795/work
-ipykernel==6.30.1
-ipython==9.5.0
-ipython_pygments_lexers==1.1.1
-jedi==0.19.2
-Jinja2==3.1.6
-joblib==1.5.1
-jsonpatch @ file:///C:/b/abs_4fdm88t7zi/croot/jsonpatch_1714483974578/work
-jsonpointer==2.1
-jsonschema==4.25.0
-jsonschema-specifications==2025.4.1
-jupyter_client==8.6.3
-jupyter_core==5.8.1
-langchain-core==0.3.76
-langchain-groq==0.3.8
-langsmith==0.4.31
-libmambapy @ file:///C:/b/abs_627vsv8bhu/croot/mamba-split_1734469608328/work/libmambapy
-markdown-it-py @ file:///C:/b/abs_a5bfngz6fu/croot/markdown-it-py_1684279915556/work
-MarkupSafe==3.0.2
-matplotlib-inline==0.1.7
-mdurl @ file:///C:/ci_311/mdurl_1676442676678/work
-menuinst @ file:///C:/b/abs_a0aibbe6s6/croot/menuinst_1750861726761/work
-narwhals==2.0.1
-nest-asyncio==1.6.0
-numpy==2.3.2
-orjson==3.11.3
-packaging @ file:///C:/b/abs_3by6s2fa66/croot/packaging_1734472138782/work
-pandas==2.3.1
-parso==0.8.5
-patsy==1.0.1
-pillow==11.3.0
-platformdirs @ file:///C:/b/abs_ddh15014or/croot/platformdirs_1744273060660/work
-plotly==6.3.0
-pluggy @ file:///C:/b/abs_dfec_m79vo/croot/pluggy_1733170145382/work
-prompt_toolkit==3.0.52
-protobuf==6.31.1
-psutil==7.1.0
-pure_eval==0.2.3
-pyarrow==21.0.0
-pycosat @ file:///C:/b/abs_18nblzzn70/croot/pycosat_1736868434419/work
-pycountry==24.6.1
-pycparser @ file:///tmp/build/80754af9/pycparser_1636541352034/work
-pydantic @ file:///C:/b/abs_d1rp6fqxgk/croot/pydantic_1750768285689/work
-pydantic_core @ file:///C:/b/abs_d0xs0z3erk/croot/pydantic-core_1750754747982/work
-pydeck==0.9.1
-Pygments @ file:///C:/b/abs_e4bg5vh5j_/croot/pygments_1744667628203/work
-PySocks @ file:///C:/ci_311/pysocks_1676425991111/work
-python-dateutil==2.9.0.post0
-python-dotenv==1.1.1
-pytz==2025.2
-pywin32==311
-PyYAML==6.0.3
-pyzmq==27.1.0
-referencing==0.36.2
-requests @ file:///C:/b/abs_0b3h9d_724/croot/requests_1750426345668/work
-requests-toolbelt==1.0.0
-rich @ file:///C:/b/abs_8b92fzmygg/croot/rich_1732638991774/work
-rpds-py==0.26.0
-ruamel.yaml @ file:///C:/b/abs_0dn1nhdq75/croot/ruamel.yaml_1745960327187/work
-ruamel.yaml.clib @ file:///C:/b/abs_475flulhy_/croot/ruamel.yaml.clib_1745937166245/work
-scikit-learn==1.7.1
-scipy==1.16.1
-six==1.17.0
-smmap==5.0.2
-sniffio==1.3.1
-stack-data==0.6.3
-statsmodels==0.14.5
 streamlit==1.48.0
+pandas==2.3.1
+numpy==2.3.2
+plotly==6.3.0
+scikit-learn==1.7.1
+statsmodels==0.14.5
+prophet
+pycountry==24.6.1
+country_converter==1.3.1
+folium==0.20.0
 streamlit-folium==0.25.1
-tenacity==9.1.2
-threadpoolctl==3.6.0
-toml==0.10.2
-tornado==6.5.1
-tqdm @ file:///C:/b/abs_0eh9b6xugj/croot/tqdm_1738945553987/work
-traitlets==5.14.3
-truststore @ file:///C:/b/abs_494cm143zh/croot/truststore_1736550137835/work
-typing-inspection @ file:///C:/b/abs_261c5jt6kx/croot/typing-inspection_1746023491500/work
-typing_extensions @ file:///C:/b/abs_0ffjxtihug/croot/typing_extensions_1734714875646/work
-tzdata==2025.2
-urllib3 @ file:///C:/b/abs_393g1ayee_/croot/urllib3_1750775481226/work
-watchdog==6.0.0
-wcwidth==0.2.14
-win-inet-pton @ file:///C:/ci_311/win_inet_pton_1676425458225/work
-xyzservices==2025.4.0
-zstandard @ file:///C:/b/abs_31t8xmrv_h/croot/zstandard_1731356578015/work
+xgboost
+altair==5.5.0
+matplotlib

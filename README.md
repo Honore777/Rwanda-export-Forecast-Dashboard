@@ -95,8 +95,7 @@ README.md → Project documentation (this file).
 Team Name: Kepler Data Scientists
 
 Team Members: - Honore HARERIMANA
-
-             -Fabrice Niyigena
+              -Fabrice Niyigena
 
 
 
