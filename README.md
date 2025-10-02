@@ -87,7 +87,7 @@ README.md → Project documentation (this file).
 ### here is the link to the demo video [https://drive.google.com/file/d/1uUOGYX7e6yE0xxMnsBKJajYlXcPeI8-j/view?usp=sharing]
 
 
-## Streamlit link (deployment link to streamlit app )
+## Streamlit link (deployment link to streamlit app )[https://rwanda-export-forecast-dashboard-miccdu8tgdevspx5hk2gh9.streamlit.app/]
 
 
 ## 👥 Team Information
