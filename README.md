@@ -81,6 +81,8 @@ README.md → Project documentation (this file).
    ```bash
    git clone https://github.com/Honore777/Rwanda-export-Forecast-Dashboard.git
    cd Rwanda-export-Forecast-Dashboard
+   Right click on app.py then open integrated terminal from there run, streamlit run app.py
+   
 
 
 ## Demo video 
