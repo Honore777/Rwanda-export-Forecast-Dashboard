@@ -12,3 +12,17 @@ streamlit-folium==0.25.1
 xgboost
 altair==5.5.0
 matplotlib
+python-dotenv
+google-generativeai
+python-dotenv
+pandas
+pdf2image
+pytesseract
+langchain
+langchain-huggingface
+langchain-community
+sentence-transformers
+faiss-cpu
+Pillow
+
+

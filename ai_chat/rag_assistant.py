@@ -25,9 +25,21 @@ from langchain_core.documents import Document
 
 # ----------------- CONFIG -----------------
 load_dotenv()
+import platform
 
+# ----------------- PLATFORM-SPECIFIC PATHS -----------------
+
+if platform.system() == "Windows":
+    # Local development (Windows)
+    pytesseract.pytesseract.tesseract_cmd = r"C:\Program Files\Tesseract-OCR\tesseract.exe"
+    POPPLER_PATH = r"C:\Users\USER\Desktop\poppler-25.11.0\Library\bin"
+else:
+    # Deployment (Linux / Streamlit Cloud)
+    pytesseract.pytesseract.tesseract_cmd = "tesseract"  # assumes tesseract is installed
+    POPPLER_PATH = "/usr/bin"  # default poppler path in Linux
 # Configure Tesseract
-pytesseract.pytesseract.tesseract_cmd = r"C:\Program Files\Tesseract-OCR\tesseract.exe"
+
+
 
 # Google AI API
 api_key = os.getenv("GEMINI_API_KEY")
@@ -41,11 +53,10 @@ VECTOR_DB_PATH = os.path.join(BASE_DIR, "chroma_laws_db")
 PDF_FOLDER = os.path.join(BASE_DIR, "../laws_pdfs")
 
 
-POPPLER_PATH = r"C:\Users\USER\Desktop\poppler-25.11.0\Library\bin"
 EMBEDDING_MODEL = "sentence-transformers/all-MiniLM-L6-v2"
 
 # Optional: path to Poppler for pdf2image
-POPPLER_PATH = r"C:\Users\USER\Desktop\poppler-25.11.0\Library\bin"
+
 
 # ----------------- OCR PDF LOADER -----------------
 def load_law_pdfs_with_ocr():
