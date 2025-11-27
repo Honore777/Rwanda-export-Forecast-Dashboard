@@ -6,6 +6,7 @@ import plotly.express as px
 import plotly.graph_objects as go
 from io import BytesIO
 import base64
+from ai_chat.rag_assistant import answer_question
 
 
 st.set_page_config(
@@ -193,6 +194,26 @@ st.markdown("""
     border-radius: 6px;
 }
             
+ /* 7th tab: light blue (variation) */
+.stTabs [role="tablist"] button:nth-of-type(7) {
+    background-color: #66CFFF !important;
+    color: #111 !important;
+    border-radius: 6px;
+}
+            
+
+ /* 8th tab: green (variation) */
+.stTabs [role="tablist"] button:nth-of-type(8) {
+    background-color: #66CFFF !important;
+    color: #111 !important;
+    border-radius: 6px;
+}
+            
+
+
+
+
+            
 .stTabs [role="tablist"] button:nth-of-type(7) {
     background-color: #66CFFF !important;
     color: #111 !important;
@@ -203,6 +224,10 @@ st.markdown("""
 .stTabs [role="tablist"] button[aria-selected="true"] {
     filter: brightness(90%);
 }
+            
+
+
+
 </style>
 """, unsafe_allow_html=True)
 
@@ -215,6 +240,7 @@ tabs= st.tabs([
     "Export Forecasts by Product",
     "Economic Indicators",
     "Top Export Opportunities & Recommendations",
+    'Ai Business Law and Data analyst',
     "Partner States GDP Map",
     "Technical Explanation",
     "Raw Data & Download"
@@ -1370,7 +1396,164 @@ with tabs[3]:
     """, unsafe_allow_html=True)
 
 
+
+
+
+
+
+from ai_chat.rag_assistant import answer_question  # RAG assistant
+from ai_chat.pandas_agent import ask_pandas_agent   # Pandas agent
+
+# -------------------- Sidebar teaser in Home Tab --------------------
+with st.sidebar:
+    st.markdown("""
+    <div style="
+        background-color: #f0f4f8;
+        padding: 20px;
+        border-radius: 10px;
+        border: 1px solid #d1d5db;
+        ">
+        <h3 style="color:#1a1a1a;">💡 Quick AI Assistance Available!</h3>
+        <p style="color:#333; font-size:14px;">
+            Need fast, interactive insights about business operations and regulations in Rwanda? 
+            Use **natural language queries** to explore legal documents, export data, and recommendations.
+        </p>
+        <p style="color:#555; font-size:13px;">
+            Navigate to the <strong>AI Tab</strong> above to interact directly with our AI-powered assistants:
+        </p>
+        <ul style="color:#555; font-size:13px;">
+            <li>📘 Ask about government laws and regulations for businesses.</li>
+            <li>📊 Get insights on export trends, products, and opportunities.</li>
+            <li>💡 Receive actionable advice and explanations in plain language.</li>
+        </ul>
+    </div>
+    """, unsafe_allow_html=True)
+
+
+
+    def render_ai_tab():
+        st.markdown("""
+        <h1 style="
+            text-align:center;
+            background-color:#2563EB;   
+            color:white;                
+            padding:20px;               
+            margin:20px 0;          
+            border-radius:8px;          
+            font-size:42px;             
+        ">
+            AI Assistant for Business Laws & Export Data
+        </h1>
+        """, unsafe_allow_html=True)
+
+        st.markdown("""
+        <div style="
+            background-color:#e0f2ff;
+            color:#111827;
+            padding:15px;
+            border-radius:8px;
+            font-size:16px;
+            line-height:1.6;
+        ">
+        Welcome! Use this interactive AI assistant to:
+        <ul>
+            <li>Ask questions about <b>Rwandan business laws</b>.</li>
+            <li>Explore <b>export data, predictions, and recommendations</b>.</li>
+            <li>Get <b>actionable insights</b> in plain language.</li>
+        </ul>
+        </div>
+        """, unsafe_allow_html=True)
+
+        # Nested tabs for AI functionality
+        law_tab, export_tab = st.tabs(["📘 Government Laws Assistant", "📊 Export Data Assistant"])
+
+        # -------------------- RAG Assistant --------------------
+        with law_tab:
+            st.markdown("""
+            <div style="
+                background-color:#f0f8ff;
+                color:#111827;
+                padding:10px;
+                border-radius:6px;
+                line-height:1.5;
+            ">
+            Ask any question about <b>business laws, regulations, or compliance</b> in Rwanda.
+            </div>
+            """, unsafe_allow_html=True)
+
+            laws_query = st.text_input("Your question about laws:", key="laws_query")
+
+            if st.button("Ask Laws Assistant", key="laws_btn"):
+                with st.spinner("Analyzing laws…"):
+                    response = answer_question(laws_query)
+                st.markdown(f"""
+                <div style="
+                    background-color:#e8f5e9;
+                    padding:15px;
+                    border-radius:10px;
+                    border:1px solid #c8e6c9;
+                    margin-top:10px;
+                    color: #1b5e20;
+                ">
+                    {response}
+                </div>
+                """, unsafe_allow_html=True)
+
+        # -------------------- Pandas Agent --------------------
+        with export_tab:
+            st.markdown("""
+            <div style="
+                background-color:#f0f8ff;
+                color:#111827;
+                padding:10px;
+                border-radius:6px;
+                line-height:1.5;
+            ">
+            Ask questions about <b>export data, predicted trends, top products, or investment opportunities</b>.
+            </div>
+            """, unsafe_allow_html=True)
+
+            data_query = st.text_input("Your question about exports:", key="export_query")
+
+            if st.button("Ask Export Data Assistant", key="export_btn"):
+                with st.spinner("Thinking with pandas…"):
+                    result = ask_pandas_agent(data_query)
+
+                if isinstance(result, dict):
+                    st.markdown("**Generated Query:**")
+                    st.code(result["query"])
+
+                    st.markdown("**Result:**")
+                    st.dataframe(result["result"])
+
+                    st.markdown("**Explanation / Advice:**")
+                    st.markdown(f"""
+                    <div style="
+                        background-color:#fff3e0;
+                        padding:15px;
+                        border-radius:10px;
+                        border:1px solid #ffe0b2;
+                        margin-top:10px;
+                        color: #bf360c;
+                    ">
+                        {result.get('explanation', 'No explanation generated.')}
+                    </div>
+                    """, unsafe_allow_html=True)
+                else:
+                    st.error("Could not generate a result.")
+
+# Render AI tab inside tab 4
+
+
+# Render AI tab inside tab 4
 with tabs[4]:
+    render_ai_tab()
+
+
+
+
+
+with tabs[5]:
     st.markdown("""
     <h2 style="
         text-align:center;
@@ -1448,7 +1631,7 @@ with tabs[4]:
 
 
 
-with tabs[5]:  # Technical / Methodology Tab
+with tabs[6]:  # Technical / Methodology Tab
 
     st.markdown(f"""
     <h1 style="
@@ -1554,17 +1737,17 @@ with tabs[5]:  # Technical / Methodology Tab
 
 
     st.code("""
-# Creating lag, moving average and growth features
-df_all['Revenue_Lag1'] = df_all.groupby('HS2')['Predicted_Exports'].shift(1)
+    # Creating lag, moving average and growth features
+    df_all['Revenue_Lag1'] = df_all.groupby('HS2')['Predicted_Exports'].shift(1)
 
-df_all['Revenue_MA3'] = (
-    df_all.groupby('HS2')['Predicted_Exports']
-          .transform(lambda x: x.rolling(3, min_periods=1).mean())
-)
+    df_all['Revenue_MA3'] = (
+        df_all.groupby('HS2')['Predicted_Exports']
+            .transform(lambda x: x.rolling(3, min_periods=1).mean())
+    )
 
-df_all['Revenue_Growth'] = (
-    df_all.groupby('HS2')['Predicted_Exports'].pct_change()
-)
+    df_all['Revenue_Growth'] = (
+        df_all.groupby('HS2')['Predicted_Exports'].pct_change()
+    )
     """)
 
 
@@ -1706,7 +1889,7 @@ df_all['Revenue_Growth'] = (
 
 
        
-with tabs[6]:
+with tabs[7]:
 
 
     st.markdown(f"""
@@ -1738,20 +1921,5 @@ with tabs[6]:
 
 
 
-    
 
-
-
-
-    
-
-
-
-
-  
-
-    
-
-
-
-
+   

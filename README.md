@@ -1,110 +1,215 @@
-# Rwanda Exports Forecast Dashboard 📊
-
+Rwanda Exports Forecast Dashboard 📊
 📌 Problem Statement
 
-Rwanda’s economy relies heavily on international trade, but export performance is influenced by multiple factors such as exchange rates, domestic GDP, and partner countries’ GDP.
-The challenge is to build a data-driven forecasting tool that allows stakeholders to:
+Rwanda’s economy relies heavily on international trade, with export performance shaped by key macroeconomic indicators such as exchange rates, domestic GDP, and the GDP of partner countries.
 
-Anticipate future export trends
+However, Rwanda’s youth, SMEs, and startups still face major challenges when trying to participate in trade or make strategic business decisions. According to national business surveys, about 16% of companies fail due to non-compliance with regulations, often because they lack:
 
-Evaluate the impact of macro-economic indicators
+Proper understanding of business, tax, and labor laws
 
-Support SMEs, government, and policymakers in making better trade decisions
+Access to business analysts or data analysts who can guide them
 
-This project was developed for the Hackathon and provides an **interactive dashboard** to analyze, forecast, and visualize Rwanda’s exports using machine learning models  ectogether with macroecnomic indicators.
+Tools that translate complex economic data into actionable insights
 
----
+In today’s world — where decisions across finance, trade, and entrepreneurship are data-driven — this lack of analytical support prevents many Rwandan entrepreneurs from identifying high-potential opportunities or avoiding costly business mistakes.
 
-## 🔹 Data Sources
-The dashboard uses multiple datasets including:
-- Rwanda’s exports by product categories (HS2 level) from the [Observatory of Economic Complexity (OEC)](https://oec.world/).
-- Macroeconomic indicators such as:
-  - Rwanda’s GDP and exchange rate (historical + forecasted values).
-  - Partner states’ GDP and exchange rate (using IMF forecasts and Prophet models).
-- Engineered features such as **weighted GDP**, **weighted exchange rates, moving averages and rolling standard deviations**, and rolling statistical features.
+This project addresses these real challenges by providing:
 
----
+A data-driven export prediction model
 
-## 🔹 What the Dashboard Communicates
-The dashboard provides insights into:
-- **Historical and forecasted exports** for Rwanda by product and sector or section .
-- **Top exports commodities** and their trends over time(from 2018 up to 2030).
-- **Partner states analysis**, including total GDP contributions and interactive maps.
-- **Recommendations for SMEs, youth, and policymakers** based on forecast results and products that show potential growth.
+A full pipeline that engineers macroeconomic + trade features
 
----
+An interactive dashboard for SMEs, youth, and policymakers
 
-## 🔹 User Interaction
-Users can:
-- Select **year ranges** via sliders in the sidebar.
-- Filter by **section** (product categories) and **products**.
-- View **interactive charts** (pie charts, bar charts, line charts, choropleths, bubble maps).
-- Explore **tables** of predicted exports with styled formatting and there are downloadabel.
-- Navigate across multiple **tabs**, such as:
-  1. Home (overview)
-  2. Section/Product Analysis
-  3. Top Exports Commodities
-  4. Recommendations
-  5. Partner States Mapping
-  6. Technical Details
-  7. Row data
+Agentic AI assistants that help users understand laws and analyze data
 
----
+Together, these tools democratize access to analytics and compliance information, enabling smarter decisions and reducing startup failure.
 
-## 🔹 Technology Stack
-- **Python**
-- **Streamlit** for dashboard development
-- **Plotly Express** for interactive visualizations
-- **XGBoost**, **Prophet**, and **Linear Regression** for forecasting
-- **Pandas** & **NumPy** for data preprocessing
+🔹 Data Pipeline Overview
 
----
-## Purpose of the Dashboard
-- Help SMEs and policymakers understand future export trends
-- Highlight top export products in different years
+The entire data workflow is documented in the Jupyter Notebook
+Rwanda Export Prediction Ultimate Model.ipynb, covering:
+
+1. Data Loading
+
+Export data from OEC (HS2 product-level).
+
+Macroeconomic data: Rwanda GDP, exchange rate, partner states’ GDP and exchange rate.
+
+2. Cleaning & Standardization
+
+Removing invalid and missing entries
+
+Normalizing product names, section labels
+
+Merging datasets across multiple years
+
+3. Feature Engineering
+
+Weighted GDP indicators
+
+Weighted exchange rates
+
+Rolling statistical features (moving averages, rolling std)
+
+Growth-based features and trend indicators
+
+4. Model Training
+
+Replaced Prophet with:
+
+➡️ Polynomial Linear Regression (degree 2)
+
+This captures non-linear export behavior while staying interpretable.
+
+5. Final Dataset Export
+
+All processed + predicted data is stored for dashboard consumption.
+
+🔹 Integrated AI Agents
+
+To solve the real challenge of limited access to analysts and legal experts, the dashboard integrates two intelligent assistants:
+
+1. RAG AI Assistant for Rwandan Government Laws 📘
+
+Helps users understand:
+
+Business registration laws
+
+Compliance for SMEs
+
+Tax obligations
+
+Labor regulations
+
+Legal steps to avoid penalties
+
+Uses:
+
+LangChain
+
+ChromaDB vector store
+
+PDF legal materials
+
+Google Gemini AI
+
+OCR (for scanned laws)
+
+This directly tackles the problem that 16% of businesses fail due to legal non-compliance.
+
+2. Pandas AI Agent for Data Analysis 📊
+
+A digital data analyst for users who don’t have one.
+
+It can answer questions like:
+
+“Which exports are growing the fastest?”
+
+“Show me top performing products between 2025–2030.”
+
+“Which partner countries contribute the most GDP share?”
+
+It executes dynamic Pandas code behind the scenes and returns:
+
+Tables
+
+Visualizations
+
+Summaries
+
+Trend statistics
+
+This empowers youth, SMEs, and startups to make data-driven decisions without needing deep technical skills.
+
+🔹 What the Dashboard Communicates
+
+Historical and forecasted exports (2018–2030)
+
+Top commodities and high-growth potential products
+
+Partner states’ GDP and trade influence
+
+AI-powered insights for legal compliance and data exploration
+
+Recommendations for youth, SMEs, and policymakers
+
+🔹 User Interaction Features
+
+Year-range filters
+
+Product and sector selection
+
+Interactive Plotly visualizations
+
+Downloadable styled tables
+
+Multiple tabs for navigation
+
+Built-in AI assistants for laws & data exploration
+
+🔹 Technology Stack
+
+Python
+
+Streamlit
+
+Plotly Express
+
+Polynomial Linear Regression (degree 2)
+
+Pandas & NumPy
+
+LangChain + Chroma + Gemini AI
+
+Tesseract OCR
+
+Pandas AI
+
+🔹 Purpose of the Dashboard
+
+Enable SMEs, youth, and policymakers to understand export dynamics
+
+Reduce startup failure caused by lack of compliance or lack of analytics
+
+Identify high-potential products for investment
+
+Support entrepreneurship through data-driven decision-making
+
+Provide legal and analytical assistance through AI agents
 
 🔹 Documentation
 
-This repository includes:
+Repository includes:
 
-app.py → The main Streamlit dashboard code (runs on any machine).
+app.py – Main Streamlit app
 
-requirements.txt → Dependencies needed to run the app.
+requirements.txt – Dependencies
 
-data/ → Preprocessed datasets used in the dashboard.
+data/ – Final processed datasets
 
-README.md → Project documentation (this file).
+Rwanda Export Prediction Ultimate Model.ipynb – Full modeling pipeline
 
+README.md – Documentation
 
-# ⚙️ How to Run Locally
-1. Clone the repository:
-   ```bash
-   git clone https://github.com/Honore777/Rwanda-export-Forecast-Dashboard.git
-   cd Rwanda-export-Forecast-Dashboard
-   pip install -r requirements.txt
-   ```
+⚙️ Run Locally
+git clone https://github.com/Honore777/Rwanda-export-Forecast-Dashboard.git
+cd Rwanda-export-Forecast-Dashboard
+pip install -r requirements.txt
+streamlit run app.py
 
-2. Run the app: 
-  to run the app locally,
-   Right click on app.py then open integrated terminal from there run, **streamlit run app.py**
+🎥 Demo Video
 
+Demo link
 
+🌐 Streamlit Deployment
 
-## Demo video 
-### here is the link to the demo video [https://drive.google.com/file/d/1uUOGYX7e6yE0xxMnsBKJajYlXcPeI8-j/view?usp=sharing]
+Live App
 
+👥 Team
 
-## Streamlit link (deployment link to streamlit app )[https://rwanda-export-forecast-dashboard-miccdu8tgdevspx5hk2gh9.streamlit.app/]
+Kepler Data Scientists
 
+Honore HARERIMANA
 
-## 👥 Team Information
-
-Team Name: Kepler Data Scientists
-
-Team Members: - Honore HARERIMANA
-              -Fabrice Niyigena
-
-
-
-
-
+Fabrice Niyigena
