@@ -1,24 +1,41 @@
-python-dotenv
-pandas
-numpy
-matplotlib
-scikit-learn
-xgboost
-statsmodels
-plotly
-altair
-folium
-streamlit
-streamlit-folium
-pycountry
-country_converter
-pillow
-pdf2image
-pytesseract
-prophet
-google-generativeai
-langchain
-chromadb
-sentence-transformers
-torch
-transformers
+# Core packages
+python-dotenv==1.2.1
+pandas==2.3.3
+numpy==2.3.5
+matplotlib==3.10.7
+scikit-learn==1.7.2
+xgboost==3.1.2
+statsmodels==0.14.5
+
+# Visualization
+altair==4.2.2
+plotly==6.5.0
+folium==0.20.0
+streamlit==1.19.0
+streamlit-folium==0.25.3
+
+# Country data
+pycountry==24.6.1
+country_converter==1.3.2
+
+# PDF and OCR
+pillow==12.0.0
+pdf2image==1.17.0
+pytesseract==0.3.13
+
+# Forecasting & Prophet
+prophet==1.2.1
+
+# AI / Langchain / embeddings
+langchain==0.2.7
+chromadb==0.5.23
+sentence-transformers==5.1.2
+torch==2.9.1
+transformers==4.57.3
+google-generativeai==0.8.5
+
+# Utilities
+typing-extensions==4.15.0
+requests==2.32.5
+python-dateutil==2.9.0.post0
+pytz==2025.2
