@@ -1,0 +1,9 @@
+# Optional ML / training extras
+scikit-learn>=1.7.2,<1.8
+xgboost
+statsmodels>=0.14.5,<0.15
+prophet>=1.2.1,<1.3
+cmdstanpy>=1.3.0
+holidays>=0.85,<1
+
+# Note: Some packages (prophet, xgboost) may need build tools or platform-specific wheels.

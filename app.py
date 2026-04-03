@@ -6,7 +6,6 @@ import plotly.express as px
 import plotly.graph_objects as go
 from io import BytesIO
 import base64
-from ai_chat.rag_assistant import answer_question
 
 
 st.set_page_config(
@@ -328,31 +327,37 @@ with tabs[0]:
 
     
     # --- Defaults ---
+    years_sorted = sorted(df['Year'].unique())
+    min_year = int(df['Year'].min())
+    max_year = int(df['Year'].max())
     if 'current_year' not in st.session_state:
-        st.session_state['current_year'] = 2025
+        st.session_state['current_year'] = max_year
     if 'projection_year' not in st.session_state:
-        st.session_state['projection_year'] = 2026
+        st.session_state['projection_year'] = max_year
 
     # --- Sliders (always displayed) ---
     st.session_state['current_year'] = st.sidebar.slider(
         "Select Current Year",
-        int(df['Year'].min()),
-        int(df['Year'].max()),
-        value=st.session_state['current_year']  # default value
+        min_year,
+        max_year,
+        value=st.session_state['current_year']
     )
 
     st.session_state['projection_year'] = st.sidebar.slider(
         "Select Projection Year",
-        int(df['Year'].min()),
-        int(df['Year'].max()),
-        value=2026
+        min_year,
+        max_year,
+        value=st.session_state['projection_year']
     )
     st.info("Use the sidebar to compare exports for different years and compute growth")
     #  Compute metrics
     total_exports_for_current_year = df[df['Year']==st.session_state['current_year']]['Predicted_Exports'].sum()
     total_exports_for_projection_year = df[df['Year']==st.session_state['projection_year']]['Predicted_Exports'].sum()
 
-    growth_between_years = (total_exports_for_projection_year - total_exports_for_current_year) / total_exports_for_current_year * 100
+    if total_exports_for_current_year != 0:
+        growth_between_years = (total_exports_for_projection_year - total_exports_for_current_year) / total_exports_for_current_year * 100
+    else:
+        growth_between_years = 0.0
 
 
 
@@ -495,15 +500,21 @@ with tabs[0]:
 
 
     if 'year' not in st.session_state:
-            st.session_state['year'] = 2025
+            st.session_state['year'] = int(df['Year'].max())
 
     st.markdown("---")
     st.info("Select a year to view the top 5 export products for that year")
 
-    st.session_state['year']= st.selectbox(
+    years_opts = sorted(df['Year'].unique())
+    try:
+        idx = years_opts.index(int(st.session_state['year']))
+    except Exception:
+        idx = len(years_opts) - 1
+
+    st.session_state['year'] = st.selectbox(
             "SELECT YEAR",
-            options=df['Year'].unique(), index=list(sorted(df["Year"].unique())).index(st.session_state.year)
-            
+            options=years_opts,
+            index=idx
         )
 
 
@@ -644,7 +655,10 @@ with tabs[1]:
 
     product_df_n = product_df[product_df['Year'] == current_year]['Predicted_Exports'].sum()
     product_df_p = product_df[product_df['Year'] == projection_year]['Predicted_Exports'].sum()
-    perc_growth = (product_df_p - product_df_n) / product_df_n * 100
+    if product_df_n != 0:
+        perc_growth = (product_df_p - product_df_n) / product_df_n * 100
+    else:
+        perc_growth = 0.0
 
     st.info('Use the sidebar to compare the selected export commodity (HS2) in different years.')
 
@@ -958,7 +972,7 @@ with tabs[2]:
     df_year = df[df['Year'] == year]
 
     avg_gdp = df_year['GDP'].mean()
-    avg_fx = df_year['Predicted_Exchange_Rate'].values[0]
+    avg_fx = df_year['Predicted_Exchange_Rate'].mean()
     weighted_gdp_fx = (df_year['GDP'] * df_year['Predicted_Exchange_Rate']).mean()
     partner_weighted_gdp= df_year['WeightedGDP'].mean()
     partner_weighted_exchange_rate= df_year['WeightedFX'].mean()
@@ -1225,14 +1239,25 @@ with tabs[3]:
 
     # Metrics
     total_exports = df_year['Predicted_Exports'].sum()
-    top_commodity = top10.iloc[0]
-    top_commodity1=top_commodity['HS2']
-    top_commodity_exports = top_commodity['Predicted_Exports']
+    if not top10.empty:
+        top_commodity = top10.iloc[0]
+        top_commodity1 = top_commodity.get('HS2', '')
+        top_commodity_exports = top_commodity.get('Predicted_Exports', 0)
+    else:
+        top_commodity = None
+        top_commodity1 = ''
+        top_commodity_exports = 0
 
     # Compare top commodity to previous year
     prev_year = year - 1
-    prev_year_exports = df[(df['Year'] == prev_year) & (df['HS2'] == top_commodity['HS2'])]['Predicted_Exports'].sum()
-    growth_top_commodity = ((top_commodity_exports - prev_year_exports) / prev_year_exports * 100) 
+    prev_year_exports = 0
+    if top_commodity is not None:
+        prev_year_exports = df[(df['Year'] == prev_year) & (df['HS2'] == top_commodity['HS2'])]['Predicted_Exports'].sum()
+
+    if prev_year_exports != 0:
+        growth_top_commodity = ((top_commodity_exports - prev_year_exports) / prev_year_exports * 100)
+    else:
+        growth_top_commodity = 0.0
 
     # Cards
     st.info('To compare top export commodities in different years from 2018 up to 2030 use the sidebar slider to select year')
@@ -1289,7 +1314,7 @@ with tabs[3]:
 
     with col2:
         st.markdown(card_style_yellow.format(
-            label=f"Top Commodity in {year}: {top_commodity['HS2']}",
+            label=f"Top Commodity in {year}: {top_commodity1}",
             value=f"${top_commodity_exports:,.0f}"
         ), unsafe_allow_html=True)
 
@@ -1401,8 +1426,8 @@ with tabs[3]:
 
 
 
-from ai_chat.rag_assistant import answer_question  # RAG assistant
-from ai_chat.pandas_agent import ask_pandas_agent   # Pandas agent
+# AI assistants are imported lazily inside the UI to avoid hard failures
+# when optional AI dependencies are missing in the deployment environment.
 
 # -------------------- Sidebar teaser in Home Tab --------------------
 with st.sidebar:
@@ -1484,20 +1509,33 @@ with st.sidebar:
             laws_query = st.text_input("Your question about laws:", key="laws_query")
 
             if st.button("Ask Laws Assistant", key="laws_btn"):
-                with st.spinner("Analyzing laws…"):
-                    response = answer_question(laws_query)
-                st.markdown(f"""
-                <div style="
-                    background-color:#e8f5e9;
-                    padding:15px;
-                    border-radius:10px;
-                    border:1px solid #c8e6c9;
-                    margin-top:10px;
-                    color: #1b5e20;
-                ">
-                    {response}
-                </div>
-                """, unsafe_allow_html=True)
+                # Lazy import to avoid hard failures when optional AI deps are missing
+                _err = None
+                try:
+                    from ai_chat.rag_assistant import answer_question as _answer_question
+                except Exception as e:
+                    _answer_question = None
+                    _err = str(e)
+
+                if _answer_question is None:
+                    st.error("Laws Assistant unavailable (missing dependencies).")
+                    if _err:
+                        st.caption(_err)
+                else:
+                    with st.spinner("Analyzing laws…"):
+                        response = _answer_question(laws_query)
+                    st.markdown(f"""
+                    <div style="
+                        background-color:#e8f5e9;
+                        padding:15px;
+                        border-radius:10px;
+                        border:1px solid #c8e6c9;
+                        margin-top:10px;
+                        color: #1b5e20;
+                    ">
+                        {response}
+                    </div>
+                    """, unsafe_allow_html=True)
 
         # -------------------- Pandas Agent --------------------
         with export_tab:
@@ -1516,31 +1554,44 @@ with st.sidebar:
             data_query = st.text_input("Your question about exports:", key="export_query")
 
             if st.button("Ask Export Data Assistant", key="export_btn"):
-                with st.spinner("Thinking with pandas…"):
-                    result = ask_pandas_agent(data_query)
+                # Lazy import to avoid hard failures when optional AI deps are missing
+                _err = None
+                try:
+                    from ai_chat.pandas_agent import ask_pandas_agent as _ask_pandas_agent
+                except Exception as e:
+                    _ask_pandas_agent = None
+                    _err = str(e)
 
-                if isinstance(result, dict):
-                    st.markdown("**Generated Query:**")
-                    st.code(result["query"])
-
-                    st.markdown("**Result:**")
-                    st.dataframe(result["result"])
-
-                    st.markdown("**Explanation / Advice:**")
-                    st.markdown(f"""
-                    <div style="
-                        background-color:#fff3e0;
-                        padding:15px;
-                        border-radius:10px;
-                        border:1px solid #ffe0b2;
-                        margin-top:10px;
-                        color: #bf360c;
-                    ">
-                        {result.get('explanation', 'No explanation generated.')}
-                    </div>
-                    """, unsafe_allow_html=True)
+                if _ask_pandas_agent is None:
+                    st.error("Export Data Assistant unavailable (missing dependencies).")
+                    if _err:
+                        st.caption(_err)
                 else:
-                    st.error("Could not generate a result.")
+                    with st.spinner("Thinking with pandas…"):
+                        result = _ask_pandas_agent(data_query)
+
+                    if isinstance(result, dict):
+                        st.markdown("**Generated Query:**")
+                        st.code(result.get("query", ""))
+
+                        st.markdown("**Result:**")
+                        st.dataframe(result.get("result"))
+
+                        st.markdown("**Explanation / Advice:**")
+                        st.markdown(f"""
+                        <div style="
+                            background-color:#fff3e0;
+                            padding:15px;
+                            border-radius:10px;
+                            border:1px solid #ffe0b2;
+                            margin-top:10px;
+                            color: #bf360c;
+                        ">
+                            {result.get('explanation', 'No explanation generated.')}
+                        </div>
+                        """, unsafe_allow_html=True)
+                    else:
+                        st.error("Could not generate a result.")
 
 # Render AI tab inside tab 4
 

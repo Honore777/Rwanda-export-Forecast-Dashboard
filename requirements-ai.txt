@@ -1,0 +1,32 @@
+# Optional AI / RAG extras (install only if you enable AI assistants)
+# Install these separately: pip install -r requirements-ai.txt
+
+# Google Gemini client
+google-generativeai
+
+# Vector DB / embeddings
+chromadb
+faiss-cpu
+
+# Embedding & transformer models
+sentence-transformers
+transformers
+torch
+
+# OCR / PDF processing (for RAG OCR)
+pillow
+pdf2image
+pytesseract
+
+# LangChain and helpers
+langchain
+PyYAML
+SQLAlchemy
+aiohttp
+importlib_resources
+
+# Additional helpful packages
+accelerate
+
+# Note: Installing `torch`/`faiss-cpu` may require platform-specific wheels or CUDA-aware installs.
+# On Windows, prefer official wheels from PyPI or follow framework docs for correct installation.

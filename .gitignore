@@ -1,1 +1,6 @@
 .env
+.venv
+.venv/
+.venv_installed.txt
+__pycache__/
+*.py[cod]
